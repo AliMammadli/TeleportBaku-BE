@@ -8,7 +8,7 @@ var drivers = db.addCollection('drivers')
 
 const NEW_DRIVERS = "NEW_DRIVERS"
 
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 4000
 
 const typeDefs = gql`
   type Query {
@@ -62,8 +62,7 @@ const resolvers = {
     },
     Query: {
         drivers: () => {
-            const data = drivers.find()[0]
-            return [{...data, lokiId: data['$loki']}]
+            return drivers.find()
         }
     },
     Mutation: {
@@ -73,14 +72,16 @@ const resolvers = {
         },
         activateDriver: async (_, { id, lat, lng }) => {
             const data = await DriverSchema.findById(id)
-            drivers.insert({
-                id: data._id,
-                name: data.name,
-                phone: data.phone,
-                device: data.device,
-                autoType: data.autoType,
-                coords: { lat, lng }
-            })
+            if (drivers.find({ 'name': data.name }).length === 0) {
+                drivers.insert({
+                    id: data._id,
+                    name: data.name,
+                    phone: data.phone,
+                    device: data.device,
+                    autoType: data.autoType,
+                    coords: { lat, lng }
+                })
+            }
 
             const activeDrivers = drivers.find()
             pubsub.publish(NEW_DRIVERS, { newDrivers: activeDrivers })
