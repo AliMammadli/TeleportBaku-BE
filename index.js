@@ -8,6 +8,8 @@ var drivers = db.addCollection('drivers')
 
 const NEW_DRIVERS = "NEW_DRIVERS"
 
+const PORT = process.env.PORT || 5000
+
 const typeDefs = gql`
   type Query {
     drivers: [Driver!]
@@ -107,5 +109,5 @@ const server = new ApolloServer({
 })
 
 mongoose.connect(`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PSWD}@tb-cluster.ym4cj.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority`, { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
-    return server.listen().then(({ url }) => console.log(`Server started at: ${url}`))
+    return server.listen({ port: PORT }).then(({ url }) => console.log(`Server started at: ${url}`))
 })
