@@ -1,0 +1,29 @@
+{
+  "name": "teleportbaku-be",
+  "version": "1.0.0",
+  "description": "Teleport Baku BackEnd",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "apollo-server": "^2.24.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-graphql": "^0.12.0",
+    "graphql": "^15.5.0",
+    "graphql-playground-middleware-express": "^1.7.22",
+    "graphql-subscriptions": "^1.2.1",
+    "graphql-tag": "^2.12.4",
+    "graphql-tools": "^7.0.4",
+    "lokijs": "^1.5.12",
+    "mongoose": "^5.12.8",
+    "subscriptions-transport-ws": "^0.9.18"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}

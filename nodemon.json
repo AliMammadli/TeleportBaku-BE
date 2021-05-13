@@ -1,0 +1,7 @@
+{
+    "env": {
+        "MONGO_USER": "tb-db-user",
+        "MONGO_PSWD": "jC1jAkYUYGRadwDz",
+        "MONGO_DB": "teleport-baku-db"
+    }
+}
