@@ -72,6 +72,7 @@ const resolvers = {
         },
         activateDriver: async (_, { id, lat, lng }) => {
             const data = await DriverSchema.findById(id)
+            console.log('[Mutation] activateDriver(mongodb)', data)
             if (drivers.find({ 'name': data.name }).length === 0) {
                 drivers.insert({
                     id: data._id,
@@ -85,6 +86,7 @@ const resolvers = {
 
             const activeDrivers = drivers.find()
             pubsub.publish(NEW_DRIVERS, { newDrivers: activeDrivers })
+            console.log('[Mutation] activateDriver(loki)', activeDrivers)
 
             return { success: true, lokiId: drivers.find({ 'name': data.name })[0]['$loki'] }
         },
